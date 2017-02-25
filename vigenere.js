@@ -1,6 +1,9 @@
 "use strict";
 
-window.addEventListener('load', function () {
+var crypt;
+var Vigenere;
+
+(function () {
 
     // jQuery lite
 
@@ -85,7 +88,7 @@ window.addEventListener('load', function () {
     var ACode = 'A'.charCodeAt(0);
     var aCode = 'a'.charCodeAt(0);
 
-    function char_to_value(ch) {
+    function charToValue(ch) {
         if (ch >= 'A' && ch <= 'Z') {
             return ch.charCodeAt(0) - ACode;
         }
@@ -95,7 +98,7 @@ window.addEventListener('load', function () {
         return -1;
     }
 
-    function value_to_char(val, origCh) {
+    function valueToChar(val, origCh) {
         val = (val + 26) % 26;
         if ((origCh >= 'A' && origCh <= 'Z') || opts.$convertToUpcase.checked) {
             return String.fromCharCode(ACode + val);
@@ -106,7 +109,7 @@ window.addEventListener('load', function () {
 
     // algorithm
 
-    var crypt = new function Vigenere() {
+    Vigenere = function() {
         this.keyForIdx = function (key, idx) {
             if (key.length <= 0) {
                 return -1;
@@ -135,7 +138,7 @@ window.addEventListener('load', function () {
         var result = [];
         var keyLength = state.$key.value.length;
         for (var i = 0; i < keyLength; ++i) {
-            var val = char_to_value(state.$key.value[i]);
+            var val = charToValue(state.$key.value[i]);
             if (val >= 0 || !opts.$skipNonLetterKeys.checked) {
                 result.push(val);
             }
@@ -156,16 +159,16 @@ window.addEventListener('load', function () {
                 result += ' ';
             }
             var ch = $from.value[i];
-            var val = char_to_value(ch);
+            var val = charToValue(ch);
             if (val >= 0) {
                 if (key.length > 0) {
                     if (state.encrypting) {
-                        ch = value_to_char(crypt.encrypt(val, j++, key), ch);
+                        ch = valueToChar(crypt.encrypt(val, j++, key), ch);
                     } else {
-                        ch = value_to_char(crypt.decrypt(val, j++, key), ch);
+                        ch = valueToChar(crypt.decrypt(val, j++, key), ch);
                     }
                 } else {
-                    ch = value_to_char(val, ch);
+                    ch = valueToChar(val, ch);
                 }
             }
             if (ch <= ' ' && opts.$deleteWhitespace.checked) {
@@ -178,4 +181,4 @@ window.addEventListener('load', function () {
         }
         $to.value = result;
     }
-});
+})();

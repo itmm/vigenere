@@ -1,0 +1,17 @@
+{
+  "name": "Vigenere",
+  "version": "1.0.0",
+  "description": "Simple Vigenère Cipher in JavaScript",
+  "private": false,
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-csso": "^2.0.0",
+    "gulp-file-include": "^1.0.0",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-uglify": "^2.0.1"
+  }
+}
