@@ -34,7 +34,7 @@ gulp.task('css', function(){
 gulp.task('default', [ 'html', 'fragment', 'js', 'css' ]);
 
 gulp.task('dist', function() {
-    return gulp.src(['./**', '!node_modules/**', '!.idea/**', '!.git/**'])
+    return gulp.src(['./**', '!node_modules/**', '!.idea/**', '!.git/**', '!*.zip'])
         .pipe(zip('vigenere.zip'))
         .pipe(gulp.dest('.'));
 })
