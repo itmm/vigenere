@@ -1,0 +1,16 @@
+textarea, input {
+    display: block;
+    margin: 4pt 20pt 20pt 20pt;
+    width: 300pt;
+}
+textarea {
+    height: 60pt;
+}
+svg {
+    display: none;
+    margin: 10pt 145pt;
+}
+
+svg.active {
+    display: block;
+}

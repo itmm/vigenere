@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Vigenère Chiffre</title>
+        <link rel="stylesheet" href="basic.css">
+    </head>
+    <body>
+        <h1>Vigenère Chiffre</h1>
+        <label for="plain">Plain Text:</label>
+        <textarea id="plain"></textarea>
+        <svg id="encrypt" class="active" viewbox="0 0 50 50" width="50" height="50">
+            <polyline points="0,20 15,20 15,0 35,0 35,20 50,20 25,50" />
+        </svg>
+        <svg id="decrypt" viewbox="0 0 50 50" width="50" height="50">
+            <polyline points="0,30 15,30 15,50 35,50 35,30 50,30 25,0" />
+        </svg>
+        <label for="encrypted">Cipher:</label>
+        <textarea id="encrypted"></textarea>
+        <label for="key">Key:</label>
+        <input type="text" id="key">
+        <script src="vigenere.js"></script>
+    </body>
+</html>
