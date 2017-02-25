@@ -15,10 +15,23 @@
         <svg id="decrypt" viewbox="0 0 50 50" width="50" height="50">
             <polyline points="0,30 15,30 15,50 35,50 35,30 50,30 25,0" />
         </svg>
-        <label for="encrypted">Cipher:</label>
-        <textarea id="encrypted"></textarea>
+        <label for="cipher">Cipher:</label>
+        <textarea id="cipher"></textarea>
         <label for="key">Key:</label>
         <input type="text" id="key">
+        <label for="options">Options:</label>
+        <div id="options">
+            <input type="checkbox" id="deleteWhitespace">
+            <label for="deleteWhitespace">delete Whitespace</label>
+            <input type="checkbox" id="groupBy5s">
+            <label for="groupBy5s">group 5 characters</label>
+            <input type="checkbox" id="deleteNonLetters">
+            <label for="deleteNonLetters">delete non-letters characters</label>
+            <input type="checkbox" id="convertToUpcase">
+            <label for="convertToUpcase">convert to upper case</label>
+            <input type="checkbox" id="skipNonLetterKeys" checked="checked">
+            <label for="skipNonLetterKeys">skip non-letter key characteres</label>
+        </div>
         <script src="vigenere.js"></script>
     </body>
 </html>

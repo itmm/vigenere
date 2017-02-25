@@ -1,98 +1,176 @@
 "use strict";
 
-window.addEventListener('load', function() {
-   function $(id) { return document.getElementById(id); }
+window.addEventListener('load', function () {
 
-   var $encrypt = $('encrypt');
-   var $decrypt = $('decrypt');
-   var encrypting = true;
+    // jQuery lite
 
-   function setEncrypting() {
-       if (! encrypting) {
-           $decrypt.classList.remove('active');
-           $encrypt.classList.add('active');
-           encrypting = true;
-       }
-   }
+    function $(id) {
+        return document.getElementById(id);
+    }
 
-   function setDecrypting() {
-       if (encrypting) {
-           $encrypt.classList.remove('active');
-           $decrypt.classList.add('active');
-           encrypting = false;
-       }
-   }
+    // Underscore lite
 
-   $encrypt.addEventListener('click', function(event) {
-       setDecrypting();
-       event.preventDefault();
-   });
+    var _ = {
+        'forEach': function(c, f) {
+            for (var k in c) {
+                if (c.hasOwnProperty(k)) {
+                    f(c[k], k);
+                }
+            }
+        }
+    };
 
-   $decrypt.addEventListener('click', function(event) {
-       setEncrypting();
-       event.preventDefault();
-   });
+    // state handling
 
-   var $plain = $('plain');
-   var $encrypted = $('encrypted');
-   var $key = $('key');
+    var state =  new function State() {
+        this.encrypting = true;
 
-   var ACode = 'A'.charCodeAt(0);
-   var aCode = 'a'.charCodeAt(0);
+        this.$plain = $('plain');
+        this.$cipher = $('cipher');
+        this.$key = $('key');
 
-   function char_to_value(ch) {
-       if ((ch >= 'A') && (ch <= 'Z')) { return ch.charCodeAt(0) - ACode; }
-       if ((ch >= 'a') && (ch <= 'z')) { return ch.charCodeAt(0) - aCode; }
-       return -1;
-   }
+        this.$encryptImage = $('encrypt');
+        this.$decryptImage = $('decrypt');
 
-   function value_to_char(val, origCh) {
-       val = (val + 26) % 26;
-       if ((origCh >= 'A') && (origCh <= 'Z')) {
-           return String.fromCharCode(ACode + val);
-       }
-       return String.fromCharCode(aCode + val);
+        this.setEncrypting = function() {
+            if (! this.encrypting) {
+                this.$decryptImage.classList.remove('active');
+                this.$encryptImage.classList.add('active');
+                this.encrypting = true;
+            }
+        };
 
-   }
+        this.setDecrypting = function() {
+            if (this.encrypting) {
+                this.$encryptImage.classList.remove('active');
+                this.$decryptImage.classList.add('active');
+                this.encrypting = false;
+            }
+        };
 
-   function perform($from, $to, factor) {
-       var keyLength = $key.value.length;
-       if (keyLength <= 0) { $to.value = ''; return; }
+        this.$encryptImage.addEventListener('click', function (event) {
+            state.setDecrypting();
+            event.preventDefault();
+        });
+        this.$decryptImage.addEventListener('click', function (event) {
+            state.setEncrypting();
+            event.preventDefault();
+        });
+        this.$plain.addEventListener('keyup', function () {
+            state.setEncrypting();
+            update();
+        });
+        this.$cipher.addEventListener('keyup', function () {
+            state.setDecrypting();
+            update();
+        });
+        this.$key.addEventListener('keyup', update);
+    };
 
-       var fromLength = $from.value.length;
-       var j = 0;
-       var result = '';
-       for (var i = 0; i < fromLength; ++i) {
-           var ch = $from.value[i];
-           var val = char_to_value(ch);
-           if (val >= 0) {
-               var key = char_to_value($key.value[j++ % keyLength]);
-               if (key >= 0) {
-                   ch = value_to_char(val + key * factor, ch);
-               }
-           }
-           result += ch;
-       }
-       $to.value = result;
-   }
+    // options
 
-   function update() {
-       if (encrypting) {
-           perform($plain, $encrypted, 1);
-       } else {
-           perform($encrypted, $plain, -1);
-       }
-   }
+    var opts = new function() {
+        this.$deleteWhitespace = $('deleteWhitespace');
+        this.$groupBy5s = $('groupBy5s');
+        this.$deleteNonLetters = $('deleteNonLetters');
+        this.$convertToUpcase = $('convertToUpcase');
+        this.$skipNonLetterKeys = $('skipNonLetterKeys');
 
-   $plain.addEventListener('keyup', function() {
-       setEncrypting();
-       update();
-   });
-   $encrypted.addEventListener('keyup', function() {
-       setDecrypting();
-       update();
-   });
-   $key.addEventListener('keyup', function() {
-       update();
-   });
+        _.forEach(opts, function(opt) { opt.addEventListener('change', update); });
+    };
+
+    // character conversion
+
+    var ACode = 'A'.charCodeAt(0);
+    var aCode = 'a'.charCodeAt(0);
+
+    function char_to_value(ch) {
+        if (ch >= 'A' && ch <= 'Z') {
+            return ch.charCodeAt(0) - ACode;
+        }
+        if (ch >= 'a' && ch <= 'z') {
+            return ch.charCodeAt(0) - aCode;
+        }
+        return -1;
+    }
+
+    function value_to_char(val, origCh) {
+        val = (val + 26) % 26;
+        if ((origCh >= 'A' && origCh <= 'Z') || opts.$convertToUpcase.checked) {
+            return String.fromCharCode(ACode + val);
+        }
+        return String.fromCharCode(aCode + val);
+
+    }
+
+    // algorithm
+
+    var crypt = new function Vigenere() {
+        this.keyForIdx = function (key, idx) {
+            if (key.length <= 0) {
+                return -1;
+            }
+            return key[idx % key.length];
+        };
+        this.encrypt = function (val, idx, key) {
+            var keyVal = this.keyForIdx(key, idx);
+            if (val < 0 || keyVal < 0) {
+                return val;
+            }
+            return val + keyVal;
+        };
+        this.decrypt = function (val, idx, key) {
+            var keyVal = this.keyForIdx(key, idx);
+            if (val < 0 || keyVal < 0) {
+                return val;
+            }
+            return val - keyVal;
+        };
+    };
+
+    // generic crypto handling
+
+    function normalizeKey() {
+        var result = [];
+        var keyLength = state.$key.value.length;
+        for (var i = 0; i < keyLength; ++i) {
+            var val = char_to_value(state.$key.value[i]);
+            if (val >= 0 || ! opts.$skipNonLetterKeys.checked) {
+                result.push(val);
+            }
+        }
+        return result;
+    }
+
+    function update() {
+        var $from = state.encrypting ? state.$plain : state.$cipher;
+        var $to = state.encrypting ? state.$cipher : state.$plain;
+
+        var key = normalizeKey();
+        var fromLength = $from.value.length;
+        var j = 0;
+        var result = '';
+        for (var i = 0; i < fromLength; ++i) {
+            if (i && i % 5 == 0 && opts.$groupBy5s.checked) {
+                result += ' ';
+            }
+            var ch = $from.value[i];
+            var val = char_to_value(ch);
+            if (val >= 0 && key.length > 0) {
+                if (state.encrypting) {
+                    ch = value_to_char(crypt.encrypt(val, j++, key), ch);
+                } else {
+                    ch = value_to_char(crypt.decrypt(val, j++, key), ch);
+                }
+            }
+            if (ch <= ' ' && opts.$deleteWhitespace.checked) {
+                continue;
+            }
+            if (val < 0 && opts.$deleteNonLetters.checked) {
+                continue;
+            }
+            result += ch;
+        }
+        $to.value = result;
+    }
 });

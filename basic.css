@@ -1,4 +1,4 @@
-textarea, input {
+textarea, #key, #options {
     display: block;
     margin: 4pt 20pt 20pt 20pt;
     width: 300pt;
