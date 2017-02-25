@@ -4,13 +4,16 @@
 #vigenere textarea, #vigenere #key, #vigenere #options {
     display: block;
     margin: 6pt 0 20pt 0;
-    width: 100%;
+    width: 98%;
+    padding: 1%;
 }
 #vigenere h1 {
     margin-bottom: 1.4em;
 }
-#vigenere textare, #vigenere #key {
+#vigenere textarea, #vigenere #key {
     border: #aaa solid 1px;
+    font-family: monospace;
+    font-size: larger;
 }
 #vigenere label {
     margin-left: -10pt;
@@ -18,9 +21,6 @@
 #vigenere #options {
     border: 1px #ccc solid;
     background-color: #eee;
-}
-#vigenere #options div {
-    margin: 10px;
 }
 #vigenere #options label {
     margin-left: 0.3em;
