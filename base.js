@@ -31,31 +31,30 @@ var crypt;
         this.$cipher = $('cipher');
         this.$key = $('key');
 
-        this.$encryptImage = $('encrypt');
-        this.$decryptImage = $('decrypt');
+        this.$direction = $('direction');
 
         this.setEncrypting = function () {
             if (!this.encrypting) {
-                this.$decryptImage.classList.remove('active');
-                this.$encryptImage.classList.add('active');
+                this.$direction.classList.remove('flip');
+                this.$direction.classList.add('flop');
                 this.encrypting = true;
             }
         };
 
         this.setDecrypting = function () {
             if (this.encrypting) {
-                this.$encryptImage.classList.remove('active');
-                this.$decryptImage.classList.add('active');
+                this.$direction.classList.remove('flop');
+                this.$direction.classList.add('flip');
                 this.encrypting = false;
             }
         };
 
-        this.$encryptImage.addEventListener('click', function (event) {
-            state.setDecrypting();
-            event.preventDefault();
-        });
-        this.$decryptImage.addEventListener('click', function (event) {
-            state.setEncrypting();
+        this.$direction.addEventListener('click', function (event) {
+            if (state.encrypting) {
+                state.setDecrypting();
+            } else {
+                state.setEncrypting();
+            }
             event.preventDefault();
         });
         this.$plain.addEventListener('keyup', function () {
