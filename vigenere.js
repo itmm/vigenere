@@ -11,7 +11,7 @@ window.addEventListener('load', function () {
     // Underscore lite
 
     var _ = {
-        'forEach': function(c, f) {
+        'forEach': function (c, f) {
             for (var k in c) {
                 if (c.hasOwnProperty(k)) {
                     f(c[k], k);
@@ -22,7 +22,7 @@ window.addEventListener('load', function () {
 
     // state handling
 
-    var state =  new function State() {
+    var state = new function State() {
         this.encrypting = true;
 
         this.$plain = $('plain');
@@ -32,15 +32,15 @@ window.addEventListener('load', function () {
         this.$encryptImage = $('encrypt');
         this.$decryptImage = $('decrypt');
 
-        this.setEncrypting = function() {
-            if (! this.encrypting) {
+        this.setEncrypting = function () {
+            if (!this.encrypting) {
                 this.$decryptImage.classList.remove('active');
                 this.$encryptImage.classList.add('active');
                 this.encrypting = true;
             }
         };
 
-        this.setDecrypting = function() {
+        this.setDecrypting = function () {
             if (this.encrypting) {
                 this.$encryptImage.classList.remove('active');
                 this.$decryptImage.classList.add('active');
@@ -69,14 +69,15 @@ window.addEventListener('load', function () {
 
     // options
 
-    var opts = new function() {
+    var opts = new function () {
         this.$deleteWhitespace = $('deleteWhitespace');
         this.$groupBy5s = $('groupBy5s');
         this.$deleteNonLetters = $('deleteNonLetters');
         this.$convertToUpcase = $('convertToUpcase');
         this.$skipNonLetterKeys = $('skipNonLetterKeys');
-
-        _.forEach(opts, function(opt) { opt.addEventListener('change', update); });
+        _.forEach(this, function (opt) {
+            opt.addEventListener('change', update);
+        });
     };
 
     // character conversion
@@ -135,7 +136,7 @@ window.addEventListener('load', function () {
         var keyLength = state.$key.value.length;
         for (var i = 0; i < keyLength; ++i) {
             var val = char_to_value(state.$key.value[i]);
-            if (val >= 0 || ! opts.$skipNonLetterKeys.checked) {
+            if (val >= 0 || !opts.$skipNonLetterKeys.checked) {
                 result.push(val);
             }
         }
@@ -156,11 +157,15 @@ window.addEventListener('load', function () {
             }
             var ch = $from.value[i];
             var val = char_to_value(ch);
-            if (val >= 0 && key.length > 0) {
-                if (state.encrypting) {
-                    ch = value_to_char(crypt.encrypt(val, j++, key), ch);
+            if (val >= 0) {
+                if (key.length > 0) {
+                    if (state.encrypting) {
+                        ch = value_to_char(crypt.encrypt(val, j++, key), ch);
+                    } else {
+                        ch = value_to_char(crypt.decrypt(val, j++, key), ch);
+                    }
                 } else {
-                    ch = value_to_char(crypt.decrypt(val, j++, key), ch);
+                    ch = value_to_char(val, ch);
                 }
             }
             if (ch <= ' ' && opts.$deleteWhitespace.checked) {
