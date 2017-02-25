@@ -3,6 +3,7 @@ var include = require('gulp-file-include');
 var htmlmin = require('gulp-htmlmin');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-csso');
+var zip = require('gulp-zip');
 
 gulp.task('html', function() {
     return gulp.src('*_web.html')
@@ -31,3 +32,9 @@ gulp.task('css', function(){
 });
 
 gulp.task('default', [ 'html', 'fragment', 'js', 'css' ]);
+
+gulp.task('dist', function() {
+    return gulp.src(['./**', '!node_modules/**', '!.idea/**', '!.git/**'])
+        .pipe(zip('vigenere.zip'))
+        .pipe(gulp.dest('.'));
+})
