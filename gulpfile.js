@@ -19,7 +19,7 @@ gulp.task('fragment', function() {
 });
 
 gulp.task('js', function(){
-    return gulp.src('*.js')
+    return gulp.src(['*.js', '!gulpfile.js'])
         .pipe(uglify())
         .pipe(gulp.dest('dist'));
 });
