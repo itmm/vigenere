@@ -18,9 +18,14 @@
 #vigenere label {
     margin-left: -10pt;
 }
+#vigenere span {
+    white-space: nowrap;
+    float: left;
+}
 #vigenere #options {
     border: 1px #ccc solid;
     background-color: #eee;
+    float: left;
 }
 #vigenere #options label {
     margin-left: 0.3em;

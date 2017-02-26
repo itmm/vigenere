@@ -1,0 +1,7 @@
+{
+  "FILTER_WHITESPACE": "filter whitespace characters",
+  "GROUP_BY_5S": "group 5 characters",
+  "FILTER_NON_LETTERS": "filter non-letters characters",
+  "CONVERT_TO_UPCASE": "convert to upper case",
+  "FILTER_NON_LETTER_KEYS": "filter non-letter key characteres"
+}

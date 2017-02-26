@@ -1,0 +1,9 @@
+{
+  "PLAIN_TEXT": "Plain Text:",
+  "ENCRYPTED_TEXT": "Encrypted Text:",
+  "KEY": "Key:",
+  "OPTIONS": "Options:",
+  "options": {
+    "FILTER_WHITESPACE": "filter whitespace characters"
+  }
+}
