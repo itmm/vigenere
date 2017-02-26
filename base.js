@@ -137,12 +137,10 @@ var crypt;
 
         var key = normalizeKey();
         var fromLength = $from.value.length;
+        var k = 0;
         var j = 0;
         var result = '';
         for (var i = 0; i < fromLength; ++i) {
-            if (i && i % 5 == 0 && opts.$groupBy5s.checked) {
-                result += ' ';
-            }
             var ch = $from.value[i];
             var val = charToValue(ch);
             if (val >= 0) {
@@ -162,7 +160,10 @@ var crypt;
             if (val < 0 && opts.$deleteNonLetters.checked) {
                 continue;
             }
-            result += ch;
+            if (k && k % 5 == 0 && opts.$groupBy5s.checked) {
+                result += ' ';
+            }
+            result += ch; ++k;
         }
         $to.value = result;
     }
