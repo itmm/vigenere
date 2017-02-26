@@ -5,12 +5,19 @@ var htmlmin = require('gulp-htmlmin');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-csso');
 var zip = require('gulp-zip');
+var htmlToJson = require('gulp-html-to-json');
 
 function dest() {
     return gulp.dest('dist');
 }
 
-gulp.task('html', function() {
+gulp.task('build-localization', function() {
+    return gulp.src('locales/*/*_description.txt')
+        .pipe(htmlToJson())
+        .pipe(gulp.dest(function(file) { return file.base; }));
+});
+
+gulp.task('html', ['build-localization'], function() {
     return gulp.src(['*_web.html', '*_fragment.html'])
         .pipe(include())
         .pipe(i18n({

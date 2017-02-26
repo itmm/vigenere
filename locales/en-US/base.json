@@ -1,4 +1,5 @@
 {
+  "DESCRIPTION": "Description",
   "PLAIN_TEXT": "Plain Text:",
   "ENCRYPTED_TEXT": "Encrypted Text:",
   "KEY": "Key:",

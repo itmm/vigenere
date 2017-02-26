@@ -1,0 +1,90 @@
+<h1>Die Vigenère Verschlüsselung</h1>
+<p>
+    Polyalphabetische Substitutions Chiffren basieren auf einem System, das vom herausragenden
+    italienischen Kryptographer Leon Battista Alberti (1404 &ndash; 1472) in seiner Abhandlung
+    <i>De Cifris</i> um 1466 publiziert und die Alberti Cipher Scheibe genannt wurde. Diese
+    verwendet zwei konzentrische Scheiben um aufeinander folgende Buchstaben mit unterschiedlichen
+    Alphabeten zu verschlüsseln. Dies macht es schwerer eine Nachricht ohne Schlüssel zu
+    dechiffrieren. Eine ähnliche Methode wurde später von dem Italiener Giovanni Baptista
+    della Porta (1535 &ndash; 1615) in seinem Buch <i>De Furtivis Literarum Notis</i> 1563
+    beschreiben. Die Porta Verschlüsselung besteht aus 13 Verschlüsselungsalphabeten.
+    Jedes wird bei zwei Schlüssel-Buchstaben verwendet.
+</p><p>
+    A few years after the invention of the Porta cipher, the Frenchman Blaise de Vigenère
+    (1523-1596) invented a similar cipher called the Autokey which he described in his book
+    <i>Traicté des Chiffres</i> in 1585. However he's more famously remembered for the cipher
+    named after him which uses a similar table to the Porta cipher but with 26 alphabets. To
+    encipher text using the Vigenère cipher the key letter is found in the left column of the
+    table and determines the row, and the plaintext letter is found in the top row and determines
+    the column. The intersection of these reveals the cipher letter. So if the key is C and the
+    plaintext letter is H the cipher letter is J.
+</p><p>
+    Two hundred years after the Vigenère cipher was invented Irish born Rear Admiral Sir Francis
+    Beaufort (1774-1857) published two variations of the Vigenère; the Beaufort and Variant
+    Beaufort ciphers in 1857. The Beaufort cipher uses reversed alphabets for both the key and
+    ciphertext in the table whereas the Variant Beaufort uses just a reversed key. Using the
+    Beaufort cipher if the key is C and the plaintext letter is H the cipher letter is V whereas
+    with the Variant Beaufort cipher the ciphertext letter is F.
+</p><p>
+    These ciphers remained largely unbroken for over 300 years until the infantry officer and
+    cryptologist Major Friedrich Wilhelm Kasiski (1805-1881), who was born in Prussia (now
+    Poland), published his book <i>Die Geheimschriften und die Dechiffrierkunst</i> ("Secret
+    Writing and the Art of Deciphering") in 1863. This described a general solution for
+    polyalphabetic substitution ciphers which is now known as the Kasiski method or test.
+</p>
+
+<span style="text-decoration: underline;">Example:</span><br>
+Type: Vigenère<br>
+Key word: CIPHER</p><br>
+<pre>
+    Key:        CIPHERC IP HER CIPH ERCIPH - ERCI PHERC IP HERCI PH ER<br/>
+    Plaintext:  Honesty is the best policy - when there is money in it.<br/>
+    Ciphertext: JWCLWKA QH ALV DMHA TFNQRF - AYGV IOIIG QH TSEGG XU MK
+</pre>
+
+<figure><a href="https://www.dropbox.com/s/qesggwacgt89sks/VigenereTable.jpg?raw=1" target="popup" onclick="window.open('https://www.dropbox.com/s/qesggwacgt89sks/VigenereTable.jpg?raw=1','_blank','width=552,height=563')">
+    <img src="https://www.dropbox.com/s/qesggwacgt89sks/VigenereTable.jpg?raw=1" class="mini-img"/></a><figcaption>Vigenère Table</figcaption>
+</figure>
+<figure><a href="https://www.dropbox.com/s/gj3bwj6l4viwak5/BeaufortTable.jpg?raw=1" target="popup" onclick="window.open('https://www.dropbox.com/s/gj3bwj6l4viwak5/BeaufortTable.jpg?raw=1','_blank','width=552,height=563')">
+    <img src="https://www.dropbox.com/s/gj3bwj6l4viwak5/BeaufortTable.jpg?raw=1" class="mini-img"/></a><figcaption>Beaufort Table</figcaption>
+</figure>
+<figure><a href="https://www.dropbox.com/s/491faoz8lwv3ivk/VariantTable.jpg?raw=1" target="popup" onclick="window.open('https://www.dropbox.com/s/491faoz8lwv3ivk/VariantTable.jpg?raw=1','_blank','width=552,height=563')">
+    <img src="https://www.dropbox.com/s/491faoz8lwv3ivk/VariantTable.jpg?raw=1" class="mini-img"/></a><figcaption>Variant Beaufort Table</figcaption>
+</figure>
+<figure><a href="https://www.dropbox.com/s/83v41famj351ouw/PortaTable.jpg?raw=1" target="popup" onclick="window.open('https://www.dropbox.com/s/83v41famj351ouw/PortaTable.jpg?raw=1','_blank','width=288,height=282')">
+    <img src="https://www.dropbox.com/s/83v41famj351ouw/PortaTable.jpg?raw=1" class="mini-img"/></a><figcaption>Porta Table</figcaption>
+</figure>
+<p style="clear: both;">
+
+<p>
+    For example, encipher the following Mark Twain quote "<i>Honesty is the best policy - when
+    there is money in it.</i>” using the key word <span class="mono">CIPHER</span> gives:
+</p>
+
+<div class="indent">
+    <p style="line-height: 1em;">
+        Vigenère Cipher</p>
+    <p style="line-height: .7em;"><span class="mono">
+Honesty is the best policy - when there is money in it.</span></p>
+    <p style="line-height: .7em;"><span class="mono">
+JWCLWKA QH ALV DMHA TFNQRF - AYGV IOIIG QH TSEGG XU MK</span></p><br>
+    <p style="line-height: 1em;">
+        Beaufort Cipher</p>
+    <p style="line-height: .7em;"><span class="mono">
+Honesty is the best policy - when there is money in it.</span></p>
+    <p style="line-height: .7em;"><span class="mono">
+VUCDMYE AX OXN BEXO PDRANJ - IKYV WAAAY AX VQEYK HU WY</span></p><br>
+    <p style="line-height: 1em;">
+        Variant Beaufort Cipher</p>
+    <p style="line-height: .7em;"><span class="mono">
+Honesty is the best policy - when there is money in it.</span></p>
+    <p style="line-height: .7em;"><span class="mono">
+FGYXOCW AD MDN ZWDM LXJANR - SQCF EAAAC AD FKWCQ TG EC</span></p><br>
+    <p style="line-height: 1em;">
+        Porta Cipher</p>
+    <p style="line-height: .7em;"><span class="mono">
+Honesty is the best policy - when there is money in it.</span></p>
+    <p style="line-height: .7em;"><span class="mono">
+VKGUDLK ZL DWZ PVLD AGZZWI - HPSJ MXTJS ZL PMFSH PK XL</span></p><br>
+</div>
+<hr>
