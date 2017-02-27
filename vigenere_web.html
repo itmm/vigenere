@@ -3,9 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <title>${{ vigenere.TITLE }}$</title>
-        <link rel="stylesheet" href="base.css">
+        <link rel="stylesheet" href="./base.css">
+        <script src="./base.js"></script>
+        <script src="./vigenere.js"></script>
     </head>
-    <body id="vigenere">
+    <body class="cryptool-container">
+        <h1>${{ vigenere.TITLE }}$</h1>
         @@include('./vigenere.html')
     </body>
 </html>

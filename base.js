@@ -2,7 +2,7 @@
 
 var crypt;
 
-(function () {
+window.addEventListener('load', function() {
 
     // jQuery lite
 
@@ -21,18 +21,6 @@ var crypt;
             }
         }
     };
-
-    // description handling
-
-    var $description = $('description');
-    $('openDescription').addEventListener('click', function(event) {
-        $description.classList.toggle('active');
-        event.preventDefault();
-    });
-    $('closeDescription').addEventListener('click', function(event) {
-        $description.classList.remove('active');
-        event.preventDefault();
-    });
 
     // state handling
 
@@ -167,4 +155,4 @@ var crypt;
         }
         $to.value = result;
     }
-})();
+});

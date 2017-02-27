@@ -1,67 +1,40 @@
-#vigenere {
+.cryptool-container {
     padding: 20pt;
 }
-#vigenere textarea, #vigenere #key, #vigenere #options {
+.cryptool-container textarea, .cryptool-container #key, .cryptool-container #options {
     display: block;
     margin: 6pt 0 20pt 0;
     width: 98%;
     padding: 1%;
 }
-#vigenere h1 {
+.cryptool-container h1 {
     margin-bottom: 1.4em;
 }
-#vigenere h1 a {
-    font-size: small;
-    vertical-align: top;
-}
-#vigenere #description {
-    display: none;
-}
-#vigenere #description.active {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    min-height: 200%;
-    background-color: rgba(255, 255, 255, 0.95);
-    z-index: 100;
-}
-#vigenere #closeDescription {
-    font-size: xx-large;
-    position: fixed;
-    top: 10pt;
-    right: 20pt;
-    text-decoration: none;
-}
-#vigenere #descriptionContent {
-    margin: 20px;
-}
-#vigenere textarea, #vigenere #key {
+.cryptool-container textarea, .cryptool-container #key {
     border: #aaa solid 1px;
     font-family: monospace;
     font-size: larger;
 }
-#vigenere label {
+.cryptool-container label {
     margin-left: -10pt;
 }
-#vigenere span {
+.cryptool-container span {
     white-space: nowrap;
     float: left;
 }
-#vigenere #options {
+.cryptool-container #options {
     border: 1px #ccc solid;
     background-color: #eee;
     float: left;
 }
-#vigenere #options label {
+.cryptool-container #options label {
     margin-left: 0.3em;
     margin-right: 2em;
 }
-#vigenere textarea {
+.cryptool-container textarea {
     height: 8em;
 }
-#vigenere svg {
+.cryptool-container svg {
     display: block;
     margin: 1em auto;
 }
@@ -73,7 +46,7 @@
         transform: rotate(180deg);
     }
 }
-#vigenere svg.flip {
+.cryptool-container #direction.flip svg {
     animation-name: flip;
     animation-duration: 1s;
     animation-fill-mode: forwards;
@@ -86,18 +59,18 @@
         transform: rotate(0deg);
     }
 }
-#vigenere svg.flop {
+.cryptool-container #direction.flop svg {
     animation-name: flop;
     animation-duration: 1s;
     animation-fill-mode: forwards;
 }
-#vigenere svg polyline {
+.cryptool-container svg polyline {
     fill: #888;
 }
-body#vigenere {
+body.cryptool-container {
     font-family: Helvetica, sans-serif;
 }
-body#vigenere h1, body#vigenere label {
+body.cryptool-container h1, body.cryptool-container label {
     font-weight: lighter;
     color: #333;
 }

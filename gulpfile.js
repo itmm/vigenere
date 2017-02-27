@@ -1,29 +1,30 @@
+"use strict";
+
 var gulp = require('gulp');
 var include = require('gulp-file-include');
 var i18n = require('gulp-i18n-localize');
 var htmlmin = require('gulp-htmlmin');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-csso');
+var rename = require('gulp-rename');
 var zip = require('gulp-zip');
-var htmlToJson = require('gulp-html-to-json');
 
 function dest() {
     return gulp.dest('dist');
 }
 
-gulp.task('build-localization', function() {
-    return gulp.src('locales/*/*_description.txt')
-        .pipe(htmlToJson())
-        .pipe(gulp.dest(function(file) { return file.base; }));
-});
-
-gulp.task('html', ['build-localization'], function() {
-    return gulp.src(['*_web.html', '*_fragment.html'])
+gulp.task('html', function() {
+    return gulp.src(['*.html', '!base.html'])
         .pipe(include())
         .pipe(i18n({
-            locales: ['en-US', 'de-DE'],
+            locales: ['en', 'de'],
             localeDir: './locales',
             schema: 'suffix'
+        }))
+        .pipe(rename(function(path) {
+            var n = path.basename;
+            var i = n.lastIndexOf('-');
+            path.basename = n.substring(0, i) + '_' + n.substring(i + 1);
         }))
         .pipe(htmlmin({ collapseWhitespace: true }))
         .pipe(dest());

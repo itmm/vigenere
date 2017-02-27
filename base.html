@@ -1,41 +1,36 @@
-<h1>@@name <a href="" id="openDescription">${{ base.DESCRIPTION }}$</a></h1>
-<div id="description">
-    <a href="" id="closeDescription">×</a>
-    <div id="descriptionContent">
-        @@description
+<div class="cryptool-container">
+    <label for="plain">${{ base.PLAIN_TEXT }}$</label>
+    <textarea id="plain"></textarea>
+    <div id="direction">
+        <svg viewbox="0 0 50 50" width="50" height="50">
+            <polyline points="0,20 15,20 15,0 35,0 35,20 50,20 25,50"></polyline>
+        </svg>
     </div>
-</div>
-<label for="plain">${{ base.PLAIN_TEXT }}$</label>
-<textarea id="plain"></textarea>
-<svg id="direction" viewbox="0 0 50 50" width="50" height="50">
-    <polyline points="0,20 15,20 15,0 35,0 35,20 50,20 25,50"></polyline>
-</svg>
-<label for="cipher">${{ base.ENCRYPTED_TEXT }}$</label>
-<textarea id="cipher"></textarea>
-<label for="key">${{ base.KEY }}$</label>
-<input type="text" id="key">
-<label for="options">${{ base.OPTIONS }}$</label>
-<div id="options">
+    <label for="cipher">${{ base.ENCRYPTED_TEXT }}$</label>
+    <textarea id="cipher"></textarea>
+    <label for="key">${{ base.KEY }}$</label>
+    <input type="text" id="key">
+    <label for="options">${{ base.OPTIONS }}$</label>
+    <div id="options">
     <span>
         <input type="checkbox" id="deleteWhitespace">
         <label for="deleteWhitespace">${{ options.FILTER_WHITESPACE }}$</label>
     </span>
-    <span>
+        <span>
         <input type="checkbox" id="groupBy5s">
         <label for="groupBy5s">${{ options.GROUP_BY_5S }}$</label>
     </span>
-    <span>
+        <span>
         <input type="checkbox" id="deleteNonLetters">
         <label for="deleteNonLetters">${{ options.FILTER_NON_LETTERS }}$</label>
     </span>
-    <span>
+        <span>
         <input type="checkbox" id="convertToUpcase">
         <label for="convertToUpcase">${{ options.CONVERT_TO_UPCASE }}$</label>
     </span>
-    <span>
+        <span>
         <input type="checkbox" id="skipNonLetterKeys" checked="checked">
         <label for="skipNonLetterKeys">${{ options.FILTER_NON_LETTER_KEYS }}$</label>
     </span>
+    </div>
 </div>
-<script src="./base.js"></script>
-
