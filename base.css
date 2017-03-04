@@ -1,16 +1,29 @@
 .cryptool-container {
     padding: 20pt;
 }
-.cryptool-container textarea, .cryptool-container #key, .cryptool-container #options {
+.cryptool-container textarea, .cryptool-container input[type="text"], .cryptool-container #options, .cryptool-container #alphabets {
     display: block;
     margin: 6pt 0 20pt 0;
     width: 98%;
     padding: 1%;
 }
+.cryptool-container .alphabet input[type="text"] {
+    display: inline-block;
+    margin: 4pt;
+    flex-grow: 1;
+}
+.cryptool-container .alphabet {
+    display: flex;
+}
+.cryptool-container .alphabet button {
+    flex-grow: 0;
+    font-size: x-large;
+    margin: 4pt;
+}
 .cryptool-container h1 {
     margin-bottom: 1.4em;
 }
-.cryptool-container textarea, .cryptool-container #key {
+.cryptool-container textarea, .cryptool-container input[type="text"] {
     border: #aaa solid 1px;
     font-family: monospace;
     font-size: larger;
@@ -22,10 +35,13 @@
     white-space: nowrap;
     float: left;
 }
-.cryptool-container #options {
+.cryptool-container #options, .cryptool-container #alphabets {
     border: 1px #ccc solid;
     background-color: #eee;
     float: left;
+}
+.cryptool-container #after-options {
+    clear: left;
 }
 .cryptool-container #options label {
     margin-left: 0.3em;

@@ -2,8 +2,6 @@
 
 var crypt;
 
-window.addEventListener('load', function() {
-
     // jQuery lite
 
     function $(id) {
@@ -32,6 +30,8 @@ window.addEventListener('load', function() {
         this.$key = $('key');
 
         this.$direction = $('direction');
+
+        this.$alphabets = [];
 
         this.setEncrypting = function () {
             if (!this.encrypting) {
@@ -66,6 +66,44 @@ window.addEventListener('load', function() {
             update();
         });
         this.$key.addEventListener('keyup', update);
+
+        var $alphaContainer = $('alphabets');
+        for (var $child = $alphaContainer.firstChild; $child; $child = $child.nextSibling) {
+            if ($child.className == 'alphabet') {
+                (function(self, $ref) {
+                    var $input = $ref.getElementsByTagName('input')[0];
+                    self.$alphabets.push($input);
+                    $input.addEventListener('keyup', update);
+                    $ref.getElementsByTagName('button')[0].addEventListener('click', function (event) {
+                        $alphaContainer.removeChild($ref);
+                        self.$alphabets.splice(self.$alphabets.indexOf($input), 1);
+                        update();
+                        event.preventDefault();
+                    });
+                })(this, $child);
+            }
+        }
+        $('add-alphabet').addEventListener('click', function(event) {
+            var $container = document.createElement('div');
+            $container.classList.add('alphabet');
+            var $input = document.createElement('input');
+            $input.setAttribute('type', 'text');
+            $input.addEventListener('keyup', update);
+            state.$alphabets.push($input);
+            $container.appendChild($input);
+            var $remove = document.createElement('button');
+            $remove.appendChild(document.createTextNode('×'));
+            $remove.addEventListener('click', function(event) {
+                $alphaContainer.removeChild($container);
+                state.$alphabets.splice(state.$alphabets.indexOf($input), 1);
+                update();
+                event.preventDefault();
+            });
+            $container.appendChild($remove);
+            $alphaContainer.insertBefore($container, $('add-alphabet'));
+            update();
+            event.preventDefault();
+        });
     };
 
     // options
@@ -83,26 +121,37 @@ window.addEventListener('load', function() {
 
     // character conversion
 
-    var ACode = 'A'.charCodeAt(0);
-    var aCode = 'a'.charCodeAt(0);
-
     function charToValue(ch) {
-        if (ch >= 'A' && ch <= 'Z') {
-            return ch.charCodeAt(0) - ACode;
-        }
-        if (ch >= 'a' && ch <= 'z') {
-            return ch.charCodeAt(0) - aCode;
+        var l = state.$alphabets.length;
+        for (var i = 0; i < l; ++i) {
+            var idx = state.$alphabets[i].value.indexOf(ch);
+            if (idx >= 0) { return idx; }
         }
         return -1;
     }
 
     function valueToChar(val, origCh) {
-        val = (val + 26) % 26;
-        if ((origCh >= 'A' && origCh <= 'Z') || opts.$convertToUpcase.checked) {
-            return String.fromCharCode(ACode + val);
+        var $usedAlphabet = undefined;
+        if (opts.$convertToUpcase.checked && state.$alphabets.length > 0) {
+            $usedAlphabet = state.$alphabets[0];
+        } else {
+            var l = state.$alphabets.length;
+            for (var i = 0; ! $usedAlphabet && i < l; ++i) {
+                if (state.$alphabets[i].value.indexOf(origCh) >= 0) {
+                    $usedAlphabet = state.$alphabets[i];
+                }
+            }
         }
-        return String.fromCharCode(aCode + val);
-
+        if ($usedAlphabet && $usedAlphabet.value.length) {
+            while (val < 0) { val += $usedAlphabet.value.length; }
+            val = val % $usedAlphabet.value.length;
+            if (val < $usedAlphabet.value.length) {
+                return $usedAlphabet.value.substr(val, 1);
+            } else {
+                return '?';
+            }
+        }
+        return origCh;
     }
 
     // generic crypto handling
@@ -155,4 +204,3 @@ window.addEventListener('load', function() {
         }
         $to.value = result;
     }
-});

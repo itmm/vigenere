@@ -1,15 +1,15 @@
 <div class="cryptool-container">
     <label for="plain">${{ base.PLAIN_TEXT }}$</label>
-    <textarea id="plain"></textarea>
+    <textarea id="plain">@@plain</textarea>
     <div id="direction">
         <svg viewbox="0 0 50 50" width="50" height="50">
             <polyline points="0,20 15,20 15,0 35,0 35,20 50,20 25,50"></polyline>
         </svg>
     </div>
     <label for="cipher">${{ base.ENCRYPTED_TEXT }}$</label>
-    <textarea id="cipher"></textarea>
+    <textarea id="cipher">@@encrypted</textarea>
     <label for="key">${{ base.KEY }}$</label>
-    <input type="text" id="key">
+    <input type="text" id="key" value="@@key">
     <label for="options">${{ base.OPTIONS }}$</label>
     <div id="options">
     <span>
@@ -32,5 +32,18 @@
         <input type="checkbox" id="skipNonLetterKeys" checked="checked">
         <label for="skipNonLetterKeys">${{ options.FILTER_NON_LETTER_KEYS }}$</label>
     </span>
+    </div>
+    <div id="after-options"></div>
+    <label for="alphabets">${{ base.ALPHABETS }}$</label>
+    <div id="alphabets">
+        <div class="alphabet">
+            <input type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
+            <button>×</button>
+        </div>
+        <div class="alphabet">
+            <input type="text" value="abcdefghijklmnopqrstuvwxyz">
+            <button>×</button>
+        </div>
+        <button id="add-alphabet">${{ base.ADD_ALPHABET }}$</button>
     </div>
 </div>
