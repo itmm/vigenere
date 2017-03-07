@@ -13,4 +13,4 @@ function Beaufort() {
     };
 }
 Beaufort.prototype = new Vigenere();
-crypt = new Beaufort();
+algo = new Beaufort();

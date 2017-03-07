@@ -1,7 +1,5 @@
 "use strict";
 
-var crypt;
-
     // jQuery lite
 
     function $(id) {
@@ -119,88 +117,11 @@ var crypt;
         });
     };
 
-    // character conversion
-
-    function charToValue(ch) {
-        var l = state.$alphabets.length;
-        for (var i = 0; i < l; ++i) {
-            var idx = state.$alphabets[i].value.indexOf(ch);
-            if (idx >= 0) { return idx; }
-        }
-        return -1;
-    }
-
-    function valueToChar(val, origCh) {
-        var $usedAlphabet = undefined;
-        if (opts.$convertToUpcase.checked && state.$alphabets.length > 0) {
-            $usedAlphabet = state.$alphabets[0];
-        } else {
-            var l = state.$alphabets.length;
-            for (var i = 0; ! $usedAlphabet && i < l; ++i) {
-                if (state.$alphabets[i].value.indexOf(origCh) >= 0) {
-                    $usedAlphabet = state.$alphabets[i];
-                }
-            }
-        }
-        if ($usedAlphabet && $usedAlphabet.value.length) {
-            while (val < 0) { val += $usedAlphabet.value.length; }
-            val = val % $usedAlphabet.value.length;
-            if (val < $usedAlphabet.value.length) {
-                return $usedAlphabet.value.substr(val, 1);
-            } else {
-                return '?';
-            }
-        }
-        return origCh;
-    }
-
-    // generic crypto handling
-
-    function normalizeKey() {
-        var result = [];
-        var keyLength = state.$key.value.length;
-        for (var i = 0; i < keyLength; ++i) {
-            var val = charToValue(state.$key.value[i]);
-            if (val >= 0 || !opts.$skipNonLetterKeys.checked) {
-                result.push(val);
-            }
-        }
-        return result;
-    }
+    var crypt = new Crypt(algo, state, opts);
 
     function update() {
         var $from = state.encrypting ? state.$plain : state.$cipher;
         var $to = state.encrypting ? state.$cipher : state.$plain;
 
-        var key = normalizeKey();
-        var fromLength = $from.value.length;
-        var k = 0;
-        var j = 0;
-        var result = '';
-        for (var i = 0; i < fromLength; ++i) {
-            var ch = $from.value[i];
-            var val = charToValue(ch);
-            if (val >= 0) {
-                if (key.length > 0) {
-                    if (state.encrypting) {
-                        ch = valueToChar(crypt.encrypt(val, j++, key), ch);
-                    } else {
-                        ch = valueToChar(crypt.decrypt(val, j++, key), ch);
-                    }
-                } else {
-                    ch = valueToChar(val, ch);
-                }
-            }
-            if (ch <= ' ' && opts.$deleteWhitespace.checked) {
-                continue;
-            }
-            if (val < 0 && opts.$deleteNonLetters.checked) {
-                continue;
-            }
-            if (k && k % 5 == 0 && opts.$groupBy5s.checked) {
-                result += ' ';
-            }
-            result += ch; ++k;
-        }
-        $to.value = result;
+        $to.value = crypt.process($from.value, state.encrypting);
     }

@@ -1,0 +1,10 @@
+{
+  "name": "vigenere",
+  "styles": [
+    "./vigenere.css"
+  ],
+  "scripts": [
+    "./vigenere.js"
+  ],
+  "html": "fragment-%lang%.html"
+}

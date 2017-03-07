@@ -1,0 +1,10 @@
+{
+  "name": "beaufort",
+  "styles": [
+    "./beaufort.css"
+  ],
+  "scripts": [
+    "./beaufort.js"
+  ],
+  "html": "fragment-%lang%.html"
+}

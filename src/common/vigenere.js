@@ -22,4 +22,4 @@ function Vigenere() {
         return val - keyVal;
     };
 };
-crypt = new Vigenere();
+var algo = new Vigenere();
