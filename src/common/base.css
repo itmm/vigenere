@@ -94,11 +94,13 @@ body.cryptool-container h1, body.cryptool-container label {
     background-color: #ddd;
     position: absolute;
     padding: 20pt;
+    margin: 6pt 0 0 0;
     border: solid 1px #aaa;
     display: none;
+    z-index: 1;
 }
 .cryptool-container #alphabet-details.active {
-    display: block;;
+    display: block;
 }
 .cryptool-container #close-alphabet-details {
     font-size: x-large;

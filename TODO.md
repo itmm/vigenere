@@ -1,15 +1,24 @@
 ## TODO
 
-* Alphabete-Dialog
 * Unit-Tests in Unterverzeichnisse
 * Unit-Tests in dist/test zusammenbauen
 * Web-Csse in eigene Datei auslagern
 * JavaScript Algorithmen in lokale Verzeichnisse
 * opts in state integrieren
 * encryption und DOM-ELemente raus aus state
+* Alphabet-Dialog: Switch Case Buttons
+* Alphabet-Dialog: Compression Unit-Tests
+* Keyword permutation
 
 ## DONE
 
+* Alphabet-Dialog: $input extrahieren
+* position Alphabet-Dialog
+* Alphabet-Dialog: Reverse Buttons
+* Alphabet-Dialog: Randomize Buttons
+* Alphabet-Dialog: Compressed Buttons
+* Alphabet-Dialog: Remove Alphabet
+* Alphabete-Dialog
 * Locales in dist/locales zusammenbauen
 * Locales in Unterverzeichnissen
 * Webseite in dist/web zusammenbauen
