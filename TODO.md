@@ -10,6 +10,7 @@
 
 ## DONE
 
+* Alphabet-Dialog: lokalisieren
 * Alphabet-Dialog: Switch Case Buttons
 * Keyword permutation
 * Alphabet-Dialog: $input extrahieren

@@ -1,0 +1,10 @@
+{
+  "COMPRESSED_NOTATION": "Compressed Alphabet Notation:",
+  "KEYWORD": "Keyword for Alphabet:",
+  "REVERSE": "Reverse",
+  "PERMUTE": "Permutate",
+  "SWITCH_CASE": "Clone to other Case",
+  "ADD_PREFIX": "Add ",
+  "ADD_POSTFIX": "",
+  "DELETE": "Delete Alphabet"
+}

@@ -37,17 +37,17 @@
     <label for="alphabets">${{ base.ALPHABETS }}$</label>
     <div id="alphabet-details"">
         <a href="" id="close-alphabet-details">×</a>
-        <label for="compressed-alphabet">Compressed Alphabet Notation:</label>
+        <label for="compressed-alphabet">${{ alphabet.COMPRESSED_NOTATION }}$</label>
         <input id="compressed-alphabet" type="text">
-        <label for="keyword-for-alphabet">Keyword for Alphabet:</label>
+        <label for="keyword-for-alphabet">${{ alphabet.KEYWORD }}$</label>
         <input id="keyword-for-alphabet" type="text">
-        <button id="reverse-alphabet">Reverse</button>
-        <button id="permute-alphabet">Permutate</button>
-        <button id="clone-alphabet-to-other-case">Clone to other Case</button>
-        <button id="add-A-Z">Add A-Z</button>
-        <button id="add-a-z">Add a-z</button>
-        <button id="add-0-9">Add 0-9</button>
-        <button id="delete-alphabet">Delete Alphabet</button>
+        <button id="reverse-alphabet">${{ alphabet.REVERSE }}$</button>
+        <button id="permute-alphabet">${{ alphabet.PERMUTE }}$</button>
+        <button id="clone-alphabet-to-other-case">${{ alphabet.SWITCH_CASE }}$</button>
+        <button id="add-A-Z">${{ alphabet.ADD_PREFIX }}$A&ndash;Z${{ alphabet.ADD_POSTFIX }}$</button>
+        <button id="add-a-z">${{ alphabet.ADD_PREFIX }}$a&ndash;z${{ alphabet.ADD_POSTFIX }}$</button>
+        <button id="add-0-9">${{ alphabet.ADD_PREFIX }}$0–9${{ alphabet.ADD_POSTFIX }}$</button>
+        <button id="delete-alphabet">${{ alphabet.DELETE }}$</button>
     </div>
     <div id="alphabets">
         <div class="alphabet">

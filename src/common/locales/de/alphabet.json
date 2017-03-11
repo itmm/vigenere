@@ -1,0 +1,10 @@
+{
+  "COMPRESSED_NOTATION": "Komprimierte Alphabet Notation:",
+  "KEYWORD": "Schlüsselwort für Alphabet:",
+  "REVERSE": "Rückwärts",
+  "PERMUTE": "Durchmischen",
+  "SWITCH_CASE": "Neues Alphabet mit vertauschten Groß- und Kleinbuchstaben",
+  "ADD_PREFIX": "",
+  "ADD_POSTFIX": " hinzufügen",
+  "DELETE": "Alphabet löschen"
+}
