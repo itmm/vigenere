@@ -80,6 +80,24 @@
             update();
         }
         $('compressed-alphabet').addEventListener('keyup', function() {
+            $keywordForAlphabet.value = '';
+            updateFromCompressedAlphabet();
+        });
+        var $keywordForAlphabet = $('keyword-for-alphabet');
+        $keywordForAlphabet.addEventListener('keyup', function() {
+            var result = '';
+            var source = $activeInput.value.split('').sort();
+            for (var idx = 0; idx < $keywordForAlphabet.value.length; ++idx) {
+                var i = source.indexOf($keywordForAlphabet.value[idx]);
+                if (i >= 0) {
+                    result += source[i];
+                    source.splice(i, 1);
+                }
+            }
+            for (idx = 0; idx < source.length; ++idx) {
+                result += source[idx];
+            }
+            $('compressed-alphabet').value = compressAlphabet(result);
             updateFromCompressedAlphabet();
         });
         function addCompressedExpression(expr) {
@@ -115,6 +133,26 @@
             $('compressed-alphabet').value = compressAlphabet(chars.join(''));
             updateFromCompressedAlphabet();
             event.preventDefault();
+        });
+        $('clone-alphabet-to-other-case').addEventListener('click', function(event) {
+            event.preventDefault();
+
+            var result = '';
+            var source = $activeInput.value;
+            for (var i = 0; i < source.length; ++i) {
+                if (source[i] == source[i].toUpperCase()) {
+                    result += source[i].toLowerCase();
+                } else {
+                    result += source[i].toUpperCase();
+                }
+            }
+
+            for (i = 0; i < state.$alphabets.length; ++i) {
+                if (state.$alphabets[i].value == result) { return; }
+            }
+
+            addAlphabet(result);
+            closeAlphabetDetails();
         });
         $('delete-alphabet').addEventListener('click', function(event) {
             state.$alphabets.splice(state.$alphabets.indexOf($activeInput), 1);
@@ -189,6 +227,7 @@
             $activeAlphabet = $container;
             $activeInput = $container.getElementsByTagName('input')[0];
             $('compressed-alphabet').value = compressAlphabet($activeInput.value);
+            $('keyword-for-alphabet').value = '';
             var $details = $('alphabet-details');
             var rect = $activeInput.getBoundingClientRect();
             $details.style.left = (rect.left + window.pageXOffset) + 'px';
@@ -209,11 +248,12 @@
                 })(this, $child);
             }
         }
-        $('add-alphabet').addEventListener('click', function(event) {
+        function addAlphabet(value) {
             var $container = document.createElement('div');
             $container.classList.add('alphabet');
             var $input = document.createElement('input');
             $input.setAttribute('type', 'text');
+            $input.value = value;
             $input.addEventListener('keyup', update);
             state.$alphabets.push($input);
             $container.appendChild($input);
@@ -226,6 +266,9 @@
             $container.appendChild($remove);
             $alphaContainer.insertBefore($container, $('add-alphabet'));
             update();
+        }
+        $('add-alphabet').addEventListener('click', function(event) {
+            addAlphabet('');
             event.preventDefault();
         });
     };

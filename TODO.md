@@ -6,12 +6,12 @@
 * JavaScript Algorithmen in lokale Verzeichnisse
 * opts in state integrieren
 * encryption und DOM-ELemente raus aus state
-* Alphabet-Dialog: Switch Case Buttons
 * Alphabet-Dialog: Compression Unit-Tests
-* Keyword permutation
 
 ## DONE
 
+* Alphabet-Dialog: Switch Case Buttons
+* Keyword permutation
 * Alphabet-Dialog: $input extrahieren
 * position Alphabet-Dialog
 * Alphabet-Dialog: Reverse Buttons
