@@ -35,14 +35,28 @@
     </div>
     <div id="after-options"></div>
     <label for="alphabets">${{ base.ALPHABETS }}$</label>
+    <div id="alphabet-details"">
+        <a href="" id="close-alphabet-details">×</a>
+        <label for="compressed-alphabet">Compressed Alphabet Notation:</label>
+        <input id="compressed-alphabet" type="text">
+        <label for="keyword-for-alphabet">Keyword for Alphabet:</label>
+        <input id="keyword-for-alphabet" type="text">
+        <button>Reverse</button>
+        <button>Permutate</button>
+        <button>Clone to other Case</button>
+        <button>Add A-Z</button>
+        <button>Add a-z</button>
+        <button>Add 0-9</button>
+        <button>Delete Alphabet</button>
+    </div>
     <div id="alphabets">
         <div class="alphabet">
             <input type="text" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ">
-            <button>×</button>
+            <button>…</button>
         </div>
         <div class="alphabet">
             <input type="text" value="abcdefghijklmnopqrstuvwxyz">
-            <button>×</button>
+            <button>…</button>
         </div>
         <button id="add-alphabet">${{ base.ADD_ALPHABET }}$</button>
     </div>

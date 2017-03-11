@@ -90,3 +90,18 @@ body.cryptool-container h1, body.cryptool-container label {
     font-weight: lighter;
     color: #333;
 }
+.cryptool-container #alphabet-details {
+    background-color: #ddd;
+    position: absolute;
+    padding: 20pt;
+    border: solid 1px #aaa;
+    display: none;
+}
+.cryptool-container #alphabet-details.active {
+    display: block;;
+}
+.cryptool-container #close-alphabet-details {
+    font-size: x-large;
+    text-align: right;
+    display: block;
+}

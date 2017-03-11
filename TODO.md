@@ -2,15 +2,18 @@
 
 * Alphabete-Dialog
 * Unit-Tests in Unterverzeichnisse
-* Basis-CtoConfig
-* Locales in Unterverzeichnissen
-* Locales in dist/locales zusammenbauen
-* Webseite in dist/web zusammenbauen
 * Unit-Tests in dist/test zusammenbauen
 * Web-Csse in eigene Datei auslagern
+* JavaScript Algorithmen in lokale Verzeichnisse
+* opts in state integrieren
+* encryption und DOM-ELemente raus aus state
 
 ## DONE
 
+* Locales in dist/locales zusammenbauen
+* Locales in Unterverzeichnissen
+* Webseite in dist/web zusammenbauen
+* Basis-CtoConfig
 * Fragment in fragment-%lang%.html umbenennen
 * Web in web-%lang%.html umbenennen
 * Beaufort Unit-Tests

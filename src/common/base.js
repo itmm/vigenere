@@ -65,7 +65,74 @@
         });
         this.$key.addEventListener('keyup', update);
 
+        $('close-alphabet-details').addEventListener('click', function(event) {
+            event.preventDefault();
+            $('alphabet-details').classList.remove('active');
+        });
+        $('compressed-alphabet').addEventListener('keyup', function() {
+            $alphaContainer.getElementsByTagName('input')[0].value = expandAlphabet($('compressed-alphabet').value);
+            update();
+        });
         var $alphaContainer = $('alphabets');
+        var $activeAlphabet;
+
+        function compressAlphabet(expanded) {
+            if (expanded.length < 3) { return expanded; }
+            var result = '';
+            var start = 0;
+            while (start < expanded.length) {
+                if (expanded[start] == '-') {
+                    result += '---';
+                    ++start;
+                    continue;
+                }
+                var val = expanded[start].charCodeAt(0);
+                var end = start + 1;
+                if (end < expanded.length) {
+                    if (val == expanded[end].charCodeAt(0) - 1) {
+                        while (end < expanded.length && val == expanded[end].charCodeAt(0) - 1) {
+                            ++end;
+                            ++val;
+                        }
+                    } else if (val == expanded[end].charCodeAt(0) + 1) {
+                        while (end < expanded.length && val == expanded[end].charCodeAt(0) + 1) {
+                            ++end;
+                            --val;
+                        }
+                    }
+                }
+                if (end - start >= 3) {
+                    result += expanded[start] + '-' + expanded[end - 1];
+                } else {
+                    for (var i = start; i < end; ++i) {
+                        result += expanded[i];
+                    }
+                }
+                start = end;
+            }
+            return result;
+        }
+        function expandAlphabet(compressed) {
+            var result = '';
+            var idx = 0;
+            while (idx < compressed.length) {
+                if (idx + 2 < compressed.length && compressed[idx + 1] == '-') {
+                    for (var i = compressed[idx].charCodeAt(0); i <= compressed[idx + 2].charCodeAt(0); ++i) {
+                        result += String.fromCharCode(i);
+                    }
+                    idx += 3;
+                } else {
+                    result += compressed[idx];
+                    ++idx;
+                }
+            }
+            return result;
+        }
+        function showAlphabetDetails($container) {
+            $activeAlphabet = $container;
+            $('compressed-alphabet').value = compressAlphabet($container.getElementsByTagName('input')[0].value);
+            $('alphabet-details').classList.add('active');
+        }
         for (var $child = $alphaContainer.firstChild; $child; $child = $child.nextSibling) {
             if ($child.className == 'alphabet') {
                 (function(self, $ref) {
@@ -73,9 +140,7 @@
                     self.$alphabets.push($input);
                     $input.addEventListener('keyup', update);
                     $ref.getElementsByTagName('button')[0].addEventListener('click', function (event) {
-                        $alphaContainer.removeChild($ref);
-                        self.$alphabets.splice(self.$alphabets.indexOf($input), 1);
-                        update();
+                        showAlphabetDetails($ref);
                         event.preventDefault();
                     });
                 })(this, $child);
@@ -90,11 +155,14 @@
             state.$alphabets.push($input);
             $container.appendChild($input);
             var $remove = document.createElement('button');
-            $remove.appendChild(document.createTextNode('×'));
+            $remove.appendChild(document.createTextNode('…'));
             $remove.addEventListener('click', function(event) {
+                /*
                 $alphaContainer.removeChild($container);
                 state.$alphabets.splice(state.$alphabets.indexOf($input), 1);
                 update();
+                */
+                showAlphabetDetails($container);
                 event.preventDefault();
             });
             $container.appendChild($remove);
