@@ -69,12 +69,12 @@ gulp.task('test', ['build-tests'], function () {
 gulp.task('default', [ 'test', 'html', 'js', 'css', 'config' ]);
 
 gulp.task('dist', ['default'], function () {
-    return gulp.src(['./**', '!node_modules/**', '!.idea/**', '!.git/**', '!*.zip', '!web/**', '!dist-test/**'])
+    return gulp.src(['./**', '!node_modules/**', '!.idea/**', '!.git/**', '!*.zip', '!web/**', '!dist-test/**', '!dist/locales/**'])
         .pipe(zip('vigenere.zip'))
         .pipe(gulp.dest('.'));
 });
 
-gulp.task('web', ['default'], function () {
-    return gulp.src(['dist/**', '!dist/*.html', 'dist/*_web.html']).pipe(gulp.dest('web'));
+gulp.task('web', ['default', 'dist'], function () {
+    return gulp.src(['*.zip', 'dist/**', '!dist/locales', '!dist/locales/**', '!**/fragment-*.html', '!**/cto.config.json']).pipe(gulp.dest('web'));
 });
 
