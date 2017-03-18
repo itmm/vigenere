@@ -66,15 +66,11 @@
         this.$key.addEventListener('keyup', update);
 
         function closeAlphabetDetails() {
-            $('alphabet-details').classList.remove('active');
+            jQuery('#alphabet-details').modal('hide');
             $activeAlphabet = undefined;
             $activeInput = undefined;
         }
 
-        $('close-alphabet-details').addEventListener('click', function(event) {
-            closeAlphabetDetails();
-            event.preventDefault();
-        });
         function updateFromCompressedAlphabet() {
             $activeInput.value = expandAlphabet($('compressed-alphabet').value);
             update();
@@ -108,7 +104,7 @@
                 event.preventDefault();
             }
         }
-        for ($child = $('alphabet-details').firstChild; $child; $child = $child.nextSibling) {
+        for ($child = $('alphabet-detail-buttons').firstChild; $child; $child = $child.nextSibling) {
             if ($child.id && $child.id.substring(0, 4) == "add-") {
                 $child.addEventListener('click', addCompressedExpression($child.id.substring(4)));
             }
@@ -225,23 +221,22 @@
         }
         function showAlphabetDetails($container) {
             $activeAlphabet = $container;
-            $activeInput = $container.getElementsByTagName('input')[0];
+            var $inner = $container.getElementsByTagName('div')[0];
+            $activeInput = $inner.getElementsByTagName('input')[0];
             $('compressed-alphabet').value = compressAlphabet($activeInput.value);
             $('keyword-for-alphabet').value = '';
-            var $details = $('alphabet-details');
-            var rect = $activeInput.getBoundingClientRect();
-            $details.style.left = (rect.left + window.pageXOffset) + 'px';
-            $details.style.top = (rect.bottom + window.pageYOffset) + 'px';
-            $details.classList.add('active');
-
+            jQuery('#alphabet-details').modal('show');
         }
         for (var $child = $alphaContainer.firstChild; $child; $child = $child.nextSibling) {
-            if ($child.className == 'alphabet') {
+            if ($child.className == 'form-group') {
                 (function(self, $ref) {
-                    var $input = $ref.getElementsByTagName('input')[0];
+                    var $inner = $ref.getElementsByTagName('div')[0];
+                    var $input = $inner.getElementsByTagName('input')[0];
                     self.$alphabets.push($input);
                     $input.addEventListener('keyup', update);
-                    $ref.getElementsByTagName('button')[0].addEventListener('click', function (event) {
+                    var $span = $inner.getElementsByTagName('span')[0];
+                    var $button = $span.getElementsByTagName('button')[0];
+                    $button.addEventListener('click', function (event) {
                         showAlphabetDetails($ref);
                         event.preventDefault();
                     });
@@ -250,21 +245,31 @@
         }
         function addAlphabet(value) {
             var $container = document.createElement('div');
-            $container.classList.add('alphabet');
+            $container.classList.add('form-group');
+            var $inner = document.createElement('div');
+            $inner.classList.add('input-group');
+            $container.appendChild($inner);
             var $input = document.createElement('input');
             $input.setAttribute('type', 'text');
+            $input.classList.add('form-control');
             $input.value = value;
             $input.addEventListener('keyup', update);
             state.$alphabets.push($input);
-            $container.appendChild($input);
-            var $remove = document.createElement('button');
-            $remove.appendChild(document.createTextNode('…'));
-            $remove.addEventListener('click', function(event) {
+            $inner.appendChild($input);
+
+            var $span = document.createElement('span');
+            $span.classList.add('input-group-btn');
+            var $details= document.createElement('button');
+            $details.appendChild(document.createTextNode('…'));
+            $details.classList.add('btn');
+            $details.classList.add('btn-default');
+            $details.addEventListener('click', function(event) {
                 showAlphabetDetails($container);
                 event.preventDefault();
             });
-            $container.appendChild($remove);
-            $alphaContainer.insertBefore($container, $('add-alphabet'));
+            $span.appendChild($details);
+            $inner.appendChild($span);
+            $alphaContainer.appendChild($container);
             update();
         }
         $('add-alphabet').addEventListener('click', function(event) {

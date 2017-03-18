@@ -3,11 +3,17 @@
     <head>
         <meta charset="UTF-8">
         <title>${{ vigenere.TITLE }}$</title>
+        <link rel="stylesheet" href="../bootstrap.min.css">
         <link rel="stylesheet" href="./vigenere.css">
-        <script src="./vigenere.js"></script>
     </head>
-    <body class="cryptool-container">
-        <h1>${{ vigenere.TITLE }}$</h1>
+    <body>
+        <div class="container">
+            <h1>${{ vigenere.TITLE }}$</h1>
+            <div class="spacer"></div>
+        </div>
         @@include('./fragment.html')
+        <script src="../jquery.min.js"></script>
+        <script src="../bootstrap.min.js"></script>
+        <script src="./vigenere.js"></script>
     </body>
 </html>

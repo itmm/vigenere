@@ -1,11 +1,7 @@
 ## Imediate Actions
 
-* Alphabete erklären
-* Alphabet box mit fester Breite
-* Alphabet im Bootstrap
 * Länge der Alphabete ausgeben
 * Alphabete verschieben
-* aestetic an Hr. Kuche
 
 ## TODO
 
@@ -20,6 +16,10 @@
 
 ## DONE
 
+* Alphabet box mit fester Breite
+* Alphabet im Bootstrap
+* Alphabete erklären
+* aestetic an Hr. Kuche
 * Alphabet-Dialog: lokalisieren
 * Alphabet-Dialog: Switch Case Buttons
 * Keyword permutation

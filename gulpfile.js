@@ -66,10 +66,19 @@ gulp.task('test', ['build-tests'], function () {
         .pipe(mocha());
 });
 
-gulp.task('default', [ 'test', 'html', 'js', 'css', 'config' ]);
+gulp.task('bootstrap', function () {
+    return gulp.src('lib/bootstrap/*')
+        .pipe(dest())
+});
+
+gulp.task('jquery', function() {
+    return gulp.src('lib/jquery/*')
+        .pipe(dest())
+});
+gulp.task('default', [ 'test', 'bootstrap', 'jquery', 'html', 'js', 'css', 'config' ]);
 
 gulp.task('dist', ['default'], function () {
-    return gulp.src(['./**', '!node_modules/**', '!.idea/**', '!.git/**', '!*.zip', '!web/**', '!dist-test/**', '!dist/locales/**'])
+    return gulp.src(['./**', '!node_modules/**', '!.idea/**', '!.git/**', '!*.zip', '!web/**', '!dist-test/**', '!dist/locales/**', '!dist/bootstrap*', '!dist/jquery*'])
         .pipe(zip('vigenere.zip'))
         .pipe(gulp.dest('.'));
 });
