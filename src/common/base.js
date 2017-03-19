@@ -71,8 +71,17 @@
             $activeInput = undefined;
         }
 
+        function updateLen() {
+            var $len = $('alphabet-length');
+            while ($len.firstChild) {
+                $len.removeChild($len.firstChild);
+            }
+            $len.appendChild(document.createTextNode('' + $activeInput.value.length));
+        }
+
         function updateFromCompressedAlphabet() {
             $activeInput.value = expandAlphabet($('compressed-alphabet').value);
+            updateLen();
             update();
         }
         $('compressed-alphabet').addEventListener('keyup', function() {
@@ -127,6 +136,20 @@
                 chars[i] = tmp;
             }
             $('compressed-alphabet').value = compressAlphabet(chars.join(''));
+            updateFromCompressedAlphabet();
+            event.preventDefault();
+        });
+        $('shift-alphabet-left').addEventListener('click', function(event) {
+            var value = $activeInput.value;
+            var result = value.substr(1) + value.substr(0, 1);
+            $('compressed-alphabet').value = compressAlphabet(result);
+            updateFromCompressedAlphabet();
+            event.preventDefault();
+        });
+        $('shift-alphabet-right').addEventListener('click', function(event) {
+            var value = $activeInput.value;
+            var result = value.substr(value.length - 1) + value.substr(0, value.length - 1);
+            $('compressed-alphabet').value = compressAlphabet(result);
             updateFromCompressedAlphabet();
             event.preventDefault();
         });
@@ -225,6 +248,7 @@
             $activeInput = $inner.getElementsByTagName('input')[0];
             $('compressed-alphabet').value = compressAlphabet($activeInput.value);
             $('keyword-for-alphabet').value = '';
+            updateLen();
             jQuery('#alphabet-details').modal('show');
         }
         for (var $child = $alphaContainer.firstChild; $child; $child = $child.nextSibling) {

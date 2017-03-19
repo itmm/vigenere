@@ -1,8 +1,5 @@
 ## Imediate Actions
 
-* Länge der Alphabete ausgeben
-* Alphabete verschieben
-
 ## TODO
 
 * Unit-Tests in Unterverzeichnisse
@@ -13,9 +10,13 @@
 * encryption und DOM-ELemente raus aus state
 * Alphabet-Dialog: Compression Unit-Tests
 * add author line
+* auf jQuery umstellen
+* $len zwischenspeichern
 
 ## DONE
 
+* Länge der Alphabete ausgeben
+* Alphabete verschieben
 * Alphabet box mit fester Breite
 * Alphabet im Bootstrap
 * Alphabete erklären
