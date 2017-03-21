@@ -1,4 +1,9 @@
-## Imediate Actions
+## Immediate Actions
+
+* lokal bauen
+* neuen Algorithmus
+* Rechtschreibkorrekturen von Herrn Esslinger
+* nach GitHub von fschell migrieren
 
 ## TODO
 
